@@ -1,1 +1,1 @@
-# Java Project Template
+# JakartaEE Json-B Retrofit2 Converter
