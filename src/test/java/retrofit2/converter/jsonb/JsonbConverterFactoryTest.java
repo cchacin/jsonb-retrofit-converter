@@ -13,6 +13,7 @@ import retrofit2.Retrofit;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
+import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
 import javax.json.bind.serializer.DeserializationContext;
@@ -71,7 +72,6 @@ public class JsonbConverterFactoryTest implements WithAssertions {
                 final JsonParser.Event next = parser.next();
 
                 if (next.equals(JsonParser.Event.KEY_NAME) && parser.getString().equals("name")) {
-                    //invokes JSONB processing for a CrateInner as a root type with "shared" instance of JsonParser
                     parser.next();
                     return new AnImplementation(ctx.deserialize(String.class, parser));
                 }
@@ -98,15 +98,17 @@ public class JsonbConverterFactoryTest implements WithAssertions {
         final Retrofit retrofit =
                 new Retrofit.Builder()
                         .baseUrl(this.server.url("/"))
-                        .addConverterFactory(JsonbConverterFactory.create(
-                                JsonbBuilder.create(
-                                        new JsonbConfig()
-                                                .withDeserializers(new AnInterfaceDeserializer())
-                                                .withSerializers(new AnInterfaceSerializer())
-                                )
-                        ))
+                        .addConverterFactory(JsonbConverterFactory.create(this.createJsonb()))
                         .build();
         this.service = retrofit.create(Service.class);
+    }
+
+    Jsonb createJsonb() {
+        return JsonbBuilder.create(
+                new JsonbConfig()
+                        .withDeserializers(new AnInterfaceDeserializer())
+                        .withSerializers(new AnInterfaceSerializer())
+        );
     }
 
     @Test
