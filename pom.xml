@@ -5,31 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.sonatype.oss</groupId>
+        <groupId>com.fasterxml</groupId>
         <artifactId>oss-parent</artifactId>
-        <version>9</version>
+        <version>40</version>
     </parent>
-
-    <inceptionYear>2020</inceptionYear>
-
-    <licenses>
-        <license>
-            <name>Apache 2.0</name>
-            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <id>cchacin</id>
-            <name>Carlos Chacin</name>
-            <email>cchacin@gmail.com</email>
-            <roles>
-                <role>Developer</role>
-            </roles>
-            <timezone>-8</timezone>
-        </developer>
-    </developers>
 
     <scm>
         <developerConnection>scm:git:git@github.com:cchacin/jsonb-retrofit-converter.git</developerConnection>
@@ -40,21 +19,16 @@
 
     <groupId>com.gihtub.cchacin</groupId>
     <artifactId>jsonb-retrofit-converter</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <name>JakartaEE Json-B Retrofit2 Converter</name>
 
     <properties>
-        <argLine/>
-        <maven.compiler.release>11</maven.compiler.release>
+        <javac.src.version>11</javac.src.version>
+        <javac.target.version>11</javac.target.version>
 
         <junit.version>5.6.2</junit.version>
-        <assertj.version>3.17.1</assertj.version>
-
-        <preparationGoals>clean compile test-compile</preparationGoals>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <project.scm.id>ossrh</project.scm.id>
+        <assertj.version>3.17.2</assertj.version>
 
         <preparationGoals>clean compile test-compile</preparationGoals>
     </properties>
@@ -115,61 +89,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.2</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-        <plugins>
-            <!-- License -->
-            <plugin>
-                <groupId>com.mycila</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <version>3.0</version>
-                <configuration>
-                    <header>${project.basedir}/header.txt</header>
-                    <properties>
-                        <owner>Carlos Chacin</owner>
-                        <email>cchacin@gmail.com</email>
-                    </properties>
-                    <quiet>true</quiet>
-                    <failIfMissing>true</failIfMissing>
-                    <aggregate>false</aggregate>
-                    <includes>
-                        <include>src/main/java/</include>
-                        <include>src/test/java/</include>
-                    </includes>
-                    <excludes>
-                        <exclude>**/README.md</exclude>
-                        <exclude>**/README.adoc</exclude>
-                        <exclude>src/test/resources/**</exclude>
-                        <exclude>src/main/resources/**</exclude>
-                    </excludes>
-                    <useDefaultExcludes>true</useDefaultExcludes>
-                    <mapping>
-                        <java>JAVADOC_STYLE</java>
-                    </mapping>
-                    <strictCheck>true</strictCheck>
-                    <useDefaultMapping>true</useDefaultMapping>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>
