@@ -1,0 +1,55 @@
+name: Maven Build
+
+on:
+  push:
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+      - '.github/ISSUE_TEMPLATE/**'
+    pull_request:
+      types: [ opened, synchronize, reopened, ready_for_review ]
+      paths-ignore:
+        - 'README.md'
+        - 'LICENSE'
+        - '.github/ISSUE_TEMPLATE/**'
+
+jobs:
+  build:
+    name: "Maven Build"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout Sources"
+        uses: actions/checkout@v2
+      - name: "Cancel previous builds"
+        uses: n1hility/cancel-previous-runs@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Set up JDK"
+        uses: actions/setup-java@v1.4.2
+        with:
+          java-version: 14
+          # We must fetch at least the immediate parents so that if this is
+          # a pull request then we can checkout the head.
+          fetch-depth: 2
+      - name: "Cache Maven dependencies"
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-maven-dependencies
+        with:
+          # maven dependencies are stored in `~/.m2/repository` on Linux/macOS
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('microgen-bom/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Configure Git user
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+      - name: "Build with Maven"
+        run: ./mvnw verify deploy -s settings.xml
+        env:
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}

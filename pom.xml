@@ -34,8 +34,8 @@
     <scm>
         <developerConnection>scm:git:git@github.com:cchacin/jsonb-retrofit-converter.git</developerConnection>
         <connection>scm:git:git@github.com:cchacin/jsonb-retrofit-converter.git</connection>
-        <tag>HEAD</tag>
         <url>https://github.com/cchacin/jsonb-retrofit-converter</url>
+        <tag>HEAD</tag>
     </scm>
 
     <groupId>com.gihtub.cchacin</groupId>
@@ -53,6 +53,10 @@
 
         <preparationGoals>clean compile test-compile</preparationGoals>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <project.scm.id>ossrh</project.scm.id>
+
+        <preparationGoals>clean compile test-compile</preparationGoals>
     </properties>
 
     <dependencies>
