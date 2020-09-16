@@ -13,7 +13,7 @@
 
     <groupId>io.github.cchacin</groupId>
     <artifactId>jsonb-retrofit-converter</artifactId>
-    <version>1.0.0-RC10-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <name>JakartaEE Json-B Retrofit2 Converter</name>
 
