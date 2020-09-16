@@ -34,5 +34,5 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: "Build with Maven"
-        run: ./mvnw verify deploy
+        run: ./mvnw verify
 
