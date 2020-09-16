@@ -2,8 +2,8 @@ name: Maven Build
 
 on:
   push:
-    tags-ignore:
-      - v* # Ignore building for tag events
+    #    tags-ignore:
+    #      - v* # Ignore building for tag events
     paths-ignore:
       - 'README.md'
       - 'LICENSE'
