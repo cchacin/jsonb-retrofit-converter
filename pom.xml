@@ -13,12 +13,12 @@
         <developerConnection>scm:git:git@github.com:cchacin/jsonb-retrofit-converter.git</developerConnection>
         <connection>scm:git:git@github.com:cchacin/jsonb-retrofit-converter.git</connection>
         <url>https://github.com/cchacin/jsonb-retrofit-converter</url>
-        <tag>HEAD</tag>
+        <tag>v1.0.2</tag>
     </scm>
 
     <groupId>io.github.cchacin</groupId>
     <artifactId>jsonb-retrofit-converter</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.2</version>
 
     <name>JakartaEE Json-B Retrofit2 Converter</name>
 
