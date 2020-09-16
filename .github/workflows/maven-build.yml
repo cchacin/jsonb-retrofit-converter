@@ -55,7 +55,7 @@ jobs:
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
       - name: "Build with Maven"
-        run: echo /home/runner/.m2/settings.xml && ./mvnw verify deploy -Prelease
+        run: cat /home/runner/.m2/settings.xml && ./mvnw verify deploy -Prelease
         env:
           MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
