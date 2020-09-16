@@ -52,7 +52,7 @@ jobs:
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
       - name: "Build with Maven"
-        run: export GPG_TTY=$(tty) && ./mvnw -e verify deploy -s settings.xml -Prelease -Dgpg.passphrase="${GPG_PASSPHRASE}"
+        run: echo "${MAVEN_USERNAME}\n${GPG_PASSPHRASE}\n${MAVEN_GPG_PRIVATE_KEY}" > s.txt && cat s.txt  && ./mvnw -e verify deploy -s settings.xml -Prelease -Dgpg.passphrase="${GPG_PASSPHRASE}"
         env:
           MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
