@@ -39,7 +39,7 @@ jobs:
         with:
           # maven dependencies are stored in `~/.m2/repository` on Linux/macOS
           path: ~/.m2/repository
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('microgen-bom/pom.xml') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
