@@ -21,6 +21,10 @@ jobs:
     steps:
       - name: "Checkout Sources"
         uses: actions/checkout@v2
+        with:
+          # We must fetch at least the immediate parents so that if this is
+          # a pull request then we can checkout the head.
+          fetch-depth: 2
       - name: "Cancel previous builds"
         uses: n1hility/cancel-previous-runs@v2
         with:
@@ -29,9 +33,6 @@ jobs:
         uses: actions/setup-java@v1.4.2
         with:
           java-version: 15
-          # We must fetch at least the immediate parents so that if this is
-          # a pull request then we can checkout the head.
-          fetch-depth: 2
           server-id: maven # Value of the distributionManagement/repository/id field of the pom.xml
           server-username: MAVEN_USERNAME # env variable for username in deploy
           server-password: MAVEN_CENTRAL_TOKEN # env variable for token in deploy
