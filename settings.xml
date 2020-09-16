@@ -12,6 +12,7 @@
         </server>
         <server>
             <id>gpg.passphrase</id>
+            <passphraseServerKey>${env.MAVEN_GPG_PRIVATE_KEY}</passphraseServerKey>
             <passphrase>${env.MAVEN_GPG_PASSPHRASE}</passphrase>
         </server>
     </servers>
