@@ -36,15 +36,7 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: "Build with Maven"
-        run: ./mvnw verify
-        env:
-          MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-          MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
-      - name: "Deploy to Maven"
-        if: ${{ github.event_name == 'tag' }}
-        run: echo "This is a TAG".
+        run: ./mvnw verify deploy -s settings.xml
         env:
           MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
