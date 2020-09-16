@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -38,9 +38,11 @@ final class JsonbResponseBodyConverter<T> implements Converter<ResponseBody, T> 
 
     @Override
     public T convert(
-            final ResponseBody value) throws IOException {
-        try (value) {
-            return this.jsonb.fromJson(value.string(), this.type);
+            final ResponseBody responseBody) throws IOException {
+        try {
+            return this.jsonb.fromJson(responseBody.string(), this.type);
+        } finally {
+            responseBody.close();
         }
     }
 }
