@@ -110,5 +110,7 @@ local.properties
 
 .bundle
 /docs/diagrams/
+
 pom.xml.releaseBackup
+pom.xml.versionsBackup
 release.properties
