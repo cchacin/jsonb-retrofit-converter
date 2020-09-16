@@ -33,12 +33,12 @@ jobs:
         uses: actions/setup-java@v1.4.2
         with:
           java-version: 15
-          settings-path: ${{ github.workspace }}
-          server-id: maven # Value of the distributionManagement/repository/id field of the pom.xml
-          server-username: MAVEN_USERNAME # env variable for username in deploy
-          server-password: MAVEN_PASSWORD # env variable for token in deploy
-          gpg-private-key: MAVEN_GPG_PRIVATE_KEY # Value of the GPG private key to import
-          gpg-passphrase: MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
+      #          settings-path: ${{ github.workspace }}
+      #          server-id: maven # Value of the distributionManagement/repository/id field of the pom.xml
+      #          server-username: MAVEN_USERNAME # env variable for username in deploy
+      #          server-password: MAVEN_PASSWORD # env variable for token in deploy
+      #          gpg-private-key: MAVEN_GPG_PRIVATE_KEY # Value of the GPG private key to import
+      #          gpg-passphrase: MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
       - name: "Cache Maven dependencies"
         uses: actions/cache@v2
         env:
@@ -56,7 +56,7 @@ jobs:
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
       - name: "Build with Maven"
-        run: ./mvnw verify deploy -s $GITHUB_WORKSPACE/settings.xml -Prelease
+        run: ./mvnw verify deploy -s settings.xml -Prelease -Dgpg.passphrase=$MAVEN_GPG_PASSPHRASE
         env:
           MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
