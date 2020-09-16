@@ -21,6 +21,10 @@ jobs:
     steps:
       - name: "Checkout Sources"
         uses: actions/checkout@v2
+        with:
+          # We must fetch at least the immediate parents so that if this is
+          # a pull request then we can checkout the head.
+          fetch-depth: 2
       - name: "Cancel previous builds"
         uses: n1hility/cancel-previous-runs@v2
         with:
@@ -29,9 +33,8 @@ jobs:
         uses: actions/setup-java@v1.4.2
         with:
           java-version: 15
-          # We must fetch at least the immediate parents so that if this is
-          # a pull request then we can checkout the head.
-          fetch-depth: 2
+          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }} # Value of the GPG private key to import
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
       - name: "Cache Maven dependencies"
         uses: actions/cache@v2
         env:
@@ -39,17 +42,19 @@ jobs:
         with:
           # maven dependencies are stored in `~/.m2/repository` on Linux/macOS
           path: ~/.m2/repository
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('pom.xml') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - name: Configure Git user
+      - name: "Configure Git User"
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
       - name: "Build with Maven"
-        run: ./mvnw verify deploy -s settings.xml -Prelease
+        run: ./mvnw verify deploy -Prelease -s settings.xml
         env:
           MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
